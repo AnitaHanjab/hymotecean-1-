@@ -23,7 +23,7 @@
                 <ul>
                     <li><a href="front.php">Home</a></li>
                     <li><a href="about.html">About Us</a></li>
-                    <li><a href="project.html">Projects</a></li>
+                    <li><a href="project.php">Projects</a></li>
                     <li><a href="contact.php">Contact</a></li>
                     <li><a href="logins.php">Login</a></li>
                 </ul>
@@ -112,6 +112,21 @@
     } 
 
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<?php if (isset($_GET['status']) && $_GET['status'] === 'sent'): ?>
+<script>
+Swal.fire({
+    icon: 'success',
+    title: 'Email Sent!',
+    
+    text: 'Your message has been successfully sent.',
+    confirmButtonColor: '#3085d6',
+    confirmButtonText: 'OK'
+});
+</script>
+<?php endif; ?>
 
 </body>
 </html>
