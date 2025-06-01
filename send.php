@@ -30,10 +30,12 @@ if (isset($_POST["send"])) {
         $mail->Body    = $_POST["Message"];  
 
         $mail->send();
-        echo "<script>alert('Message was sent successfully!'); document.location.href = 'contact.php';</script>";
+        header("Location: contact.php?status=sent");
+        exit;
 
     } catch (Exception $e) {
-        echo "<script>alert('Message could not be sent. Mailer Error: {$mail->ErrorInfo}');</script>";
+        header("Location: contact.php?status=error");
+        exit;
     }
 }
 ?>
