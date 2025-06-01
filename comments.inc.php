@@ -9,7 +9,31 @@ function setComments($conn){
         $comment = $_POST['comment'];
 
         $sql = "INSERT INTO leavecomment (username, email, date, comment) VALUES ('$username', '$email', '$date', '$comment')";
-        $result = $conn->query($sql);
+        if ($conn->query($sql) === TRUE) {
+            echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Comment Posted!',
+                        text: 'Your comment has been successfully submitted.',
+                        confirmButtonColor: '#3085d6'
+                    }).then(() => {
+                        document.querySelector('.comment-form').reset();
+                    });
+                });
+            </script>";
+        } else {
+            echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Failed to submit comment. Please try again.',
+                        confirmButtonColor: '#d33'
+                    });
+                });
+            </script>";
+        }
     }
 }
 
