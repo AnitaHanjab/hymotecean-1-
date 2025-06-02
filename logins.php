@@ -18,7 +18,7 @@
             <ul>
                 <li><a href="front.php" class="link">Home</a></li>
                 <li><a href="about.html" class="link">About Us</a></li>
-                <li><a href="project.html" class="link">Project</a></li>
+                <li><a href="project.php" class="link">Project</a></li>
                 <li><a href="contact.php" class="link">Contact</a></li>
                 <li><a href="logins.php" class="link">Login</a></li>
             </ul>
