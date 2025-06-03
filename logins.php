@@ -45,7 +45,7 @@
                 <i class="bx bx-user"></i>
         </div>
             <div class="input-box">
-                <input type="password" class="input-field" id="password" placeholder="Password" name="Password">
+                <input type="password" class="input-field" id="password" placeholder="Password" name="Password" required>
                 <i class="bx bx-lock-alt"></i>
             </div>
         <div class="input-box">
@@ -139,6 +139,29 @@
     }
     
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get('status');
+
+    if (status === 'wrongpassword') {
+        Swal.fire({
+            icon: 'error',
+            title: 'Incorrect Password!',
+            text: 'The password you entered is incorrect.',
+            confirmButtonColor: '#3085d6',
+        });
+    } else if (status === 'emailnotfound') {
+        Swal.fire({
+            icon: 'error',
+            title: 'Email Not Found!',
+            text: 'We couldn’t find an account with that email.',
+            confirmButtonColor: '#3085d6',
+        });
+    }
+</script>
+
 </body>
 </html>
 
