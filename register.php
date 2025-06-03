@@ -2,7 +2,23 @@
 include 'connect.php';
 session_start();
 
-// --- REGISTER ---
+// Function to show a SweetAlert2 
+function showAlertAndRedirect($message) {
+    echo "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '$message'
+        }).then(function() {
+            window.history.back();
+        });
+    </script>";
+    exit();
+}
+
+// REGISTER 
 if (isset($_POST['Register'])) {
     $Firstname = $_POST['Firstname'];
     $Lastname = $_POST['Lastname'];
@@ -15,7 +31,7 @@ if (isset($_POST['Register'])) {
     $result = $conn->query($checkEmail);
 
     if ($result->num_rows > 0) {
-        echo "Email Address Already Exists!";
+        showAlertAndRedirect("Email Address Already Exists!");
     } else {
         $insertQuery = "INSERT INTO username (Firstname, Lastname, Email, Password)
                         VALUES ('$Firstname', '$Lastname', '$Email', '$hashedPassword')";
@@ -24,15 +40,14 @@ if (isset($_POST['Register'])) {
             header("Location: logins.php");
             exit();
         } else {
-            echo "Error: " . $conn->error;
+            showAlertAndRedirect("Registration failed. Please try again.");
         }
     }
 }
 
-// --- LOGIN ---
+// LOGIN 
 if (isset($_POST['signIn'])) {
-
-    $Email = $_POST['Email']; 
+    $Email = $_POST['Email'];
     $Password = $_POST['Password'];
 
     $sql = "SELECT * FROM username WHERE Email = '$Email'";
@@ -46,10 +61,14 @@ if (isset($_POST['signIn'])) {
             header("Location: front.php");
             exit();
         } else {
-            echo "Incorrect password.";
+            // Incorrect password
+            header("Location: logins.php?status=wrongpassword");
+            exit();
         }
     } else {
-        echo "Email not found.";
+        // Email not found
+        header("Location: logins.php?status=emailnotfound");
+        exit();
     }
 }
 ?>
