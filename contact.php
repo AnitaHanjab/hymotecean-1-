@@ -68,62 +68,59 @@
         </div>
     </div>  
 
-<div class="contact-col">
+ <div class="contact-col">
 
-    <form method="post" action="send.php">
-        <input type="text" name="Name" id="Name" placeholder="Enter your name" required>
-        <input type="email" name="Email" id="Email" placeholder="Enter email address" required>
-        <input type="text" name="Projects" id="Projects" placeholder="Enter your request project" required>
-        <textarea rows="8" name="Message" id="Message" placeholder="Message" required></textarea>
-        <button type="submit" name="send" class="hero-btn blue-btn">Send Message</button>
-    </form>
-</div>
+        <form action="send.php" method="post" enctype="multipart/form-data">
+            <input type="text" name="Name" id="Name" placeholder="Enter your name" required>
+            <input type="email" name="Email" id="Email" placeholder="Enter email address" required>
+            <input type="text" name="Projects" id="Projects" placeholder="Project description" required>
+            <textarea rows="8" name="Message" id="Message" placeholder="Message" required></textarea>
+            <input type="file" name="Project[]" id="Project" accept=".pdf,.doc,.docx,.jpg,.png" multiple required>
+            <button type="submit" name="send" class="hero-btn blue-btn">Send Message</button>
+        </form>
 
-   </section>
+    </div>
+</section>
 
 <section class="footer">
-    <h3>About Us</h3>
-    <p>Hymetocean Peers Company (HPC) is a technical service provider (General Partnership)</br> 
-        registered in the Philippines that specializes in lakes and coastal ocean studies, water 
-        resources,</br> renewable energy exploration, water quality modeling and air quality modeling. </p>
-        <div class="icons">
-            <i class="fa-brands fa-facebook"></i>
-            <i class="fa-brands fa-twitter"></i>
-            <i class="fa-brands fa-instagram"></i>
-            <i class="fa-brands fa-yahoo"></i>
-        </div>
 
-        <section class="cpr">
-        <p>Copyright <i class="fa fa-copyright"></i> 2025 HYMETOCEAN.PEERS.CO, -All right Reserved - Terms of Use</p>
+    <h3>About Us</h3>
+    <p>Hymetocean Peers Company is a technical service provider in the Philippines that specializes in lakes and coastal ocean studies, water resources, renewable energy, and environmental modeling.</p>
+    <div class="icons">
+        <i class="fa-brands fa-facebook"></i>
+        <i class="fa-brands fa-twitter"></i>
+        <i class="fa-brands fa-instagram"></i>
+        <i class="fa-brands fa-yahoo"></i>
+    </div>
+    <section class="cpr">
+        <p>&copy; 2025 HYMETOCEAN.PEERS.CO – All rights reserved – Terms of Use</p>
     </section>
 </section>
 
-
-
 <script>
-
-    var navLinks = document.getElementById("navLinks");
-
-    function showMenu(){
-        navLinks.style.right = "0";
-    }
-    function hideMenu(){
-       navLinks.style.right = "-200px";
-    } 
-
+    function showMenu(){ document.getElementById("navLinks").style.right = "0"; }
+    function hideMenu(){ document.getElementById("navLinks").style.right = "-200px"; }
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <?php if (isset($_GET['status']) && $_GET['status'] === 'sent'): ?>
 <script>
 Swal.fire({
     icon: 'success',
     title: 'Email Sent!',
-    
-    text: 'Your message has been successfully sent.',
+    text: 'Your message and file(s) were successfully sent.',
     confirmButtonColor: '#3085d6',
     confirmButtonText: 'OK'
+});
+</script>
+<?php elseif (isset($_GET['status']) && $_GET['status'] === 'error'): ?>
+<script>
+Swal.fire({
+    icon: 'error',
+    title: 'Oops...',
+    text: 'Something went wrong while sending your message.',
+    confirmButtonColor: '#d33',
+    confirmButtonText: 'Try Again'
 });
 </script>
 <?php endif; ?>
