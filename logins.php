@@ -9,7 +9,7 @@
     <title>Hymetocean Peers Co. | Login & Registration Form</title>
 </head>
 <body>
- <div class="wrapper">
+<div class="wrapper">
     <nav class="nav">
         <div class="nav-logo">
             <img src="img/logo.png" alt="Logo" class="logo">
@@ -31,38 +31,40 @@
             <i class="bx bx-menu" onclick="myMenuFunction()"></i>
         </div>
     </nav>
-   
+
     <div class="form-box">
 
-    <form method="post" action="register.php">
-        <div class="login-container" id="login"> 
-            <div class="top">
-                <span>Don't have an account? <a href="#" onclick="register()">Sign Up</a></span>
-                <header>Login</header>
-            </div>
-        <div class="input-box">
-                <input type="text" class="input-field" id="email" placeholder="Email" name="Email" required>
-                <i class="bx bx-user"></i>
-        </div>
-            <div class="input-box">
-                <input type="password" class="input-field" id="password" placeholder="Password" name="Password" required>
-                <i class="bx bx-lock-alt"></i>
-            </div>
-        <div class="input-box">
-                <input type="submit" class="submit" value="Sign In" name="signIn">
-        </div>
-            <div class="two-col">
-                <div class="one">
-                    <input type="checkbox" id="login-check">
-                    <label for="login-check"> Remember Me</label>
+        <!-- Login Form -->
+        <form method="post" action="front.php">
+            <div class="login-container" id="login">
+                <div class="top">
+                    <span>Don't have an account? <a href="#" onclick="register()">Sign Up</a></span>
+                    <header>Login</header>
                 </div>
-                <div class="two">
-                    <label><a href="#">Forgot password?</a></label>
+                <div class="input-box">
+                    <input type="text" class="input-field" id="email" placeholder="Email" name="Email" required>
+                    <i class="bx bx-user"></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" class="input-field" id="password" placeholder="Password" name="Password" required>
+                    <i class="bx bx-lock-alt"></i>
+                </div>
+                <div class="input-box">
+                    <input type="submit" class="submit" value="Sign In" name="signIn">
+                </div>
+                <div class="two-col">
+                    <div class="one">
+                        <input type="checkbox" id="login-check">
+                        <label for="login-check"> Remember Me</label>
+                    </div>
+                    <div class="two">
+                        <label><a href="forgotPassword.php">Forgot password?</a></label>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
 
+        <!-- Registration Form -->
         <form method="post" action="register.php">
             <div class="register-container" id="register">
                 <div class="top">
@@ -71,20 +73,20 @@
                 </div>
                 <div class="two-forms">
                     <div class="input-box">
-                        <input type="text" class="input-field" name="Firstname" id="Firstname" placeholder="Firstname" required >
+                        <input type="text" class="input-field" name="Firstname" placeholder="Firstname" required>
                         <i class="bx bx-user"></i>
                     </div>
                     <div class="input-box">
-                        <input type="text" class="input-field" name="Lastname" id="Lastname" placeholder="Lastname" required>
+                        <input type="text" class="input-field" name="Lastname" placeholder="Lastname" required>
                         <i class="bx bx-user"></i>
                     </div>
                 </div>
                 <div class="input-box">
-                    <input type="text" class="input-field" name="Email" id="Email" placeholder="Email" required>
+                    <input type="text" class="input-field" name="Email" placeholder="Email" required>
                     <i class="bx bx-envelope"></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" class="input-field" name="Password" id="Password" placeholder="Password" required>
+                    <input type="password" class="input-field" name="Password" placeholder="Password" required>
                     <i class="bx bx-lock-alt"></i>
                 </div>
                 <div class="input-box">
@@ -101,45 +103,46 @@
                 </div>
             </div>
         </form>
+
     </div>
-</div>   
+</div>
+
+<!-- Scripts -->
 <script>
-   
-   function myMenuFunction() {
-    var i = document.getElementById("navMenu");
-    if(i.className === "nav-menu") {
-        i.className += " responsive";
-    } else {
-        i.className = "nav-menu";
+    function myMenuFunction() {
+        var i = document.getElementById("navMenu");
+        if (i.className === "nav-menu") {
+            i.className += " responsive";
+        } else {
+            i.className = "nav-menu";
+        }
     }
-   }
- 
-</script>
-<script>
-    var a = document.getElementById("loginBtn");
-    var b = document.getElementById("registerBtn");
-    var x = document.getElementById("login");
-    var y = document.getElementById("register");
+
+    var loginBtn = document.getElementById("loginBtn");
+    var registerBtn = document.getElementById("registerBtn");
+    var loginBox = document.getElementById("login");
+    var registerBox = document.getElementById("register");
 
     function login() {
-        x.style.left = "4px";
-        y.style.right = "-520px";
-        a.className += " white-btn";
-        b.className = "btn";
-        x.style.opacity = 1;
-        y.style.opacity = 0;
+        loginBox.style.left = "4px";
+        registerBox.style.right = "-520px";
+        loginBtn.className += " white-btn";
+        registerBtn.className = "btn";
+        loginBox.style.opacity = 1;
+        registerBox.style.opacity = 0;
     }
+
     function register() {
-        x.style.left = "-510px";
-        y.style.right = "5px";
-        a.className = "btn";
-        b.className += " white-btn";
-        x.style.opacity = 0;
-        y.style.opacity = 1;
+        loginBox.style.left = "-510px";
+        registerBox.style.right = "5px";
+        loginBtn.className = "btn";
+        registerBtn.className += " white-btn";
+        loginBox.style.opacity = 0;
+        registerBox.style.opacity = 1;
     }
-    
 </script>
 
+<!-- SweetAlert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     const urlParams = new URLSearchParams(window.location.search);
@@ -160,8 +163,24 @@
             confirmButtonColor: '#3085d6',
         });
     }
+
+    const reset = urlParams.get('reset');
+    if (reset === 'sent') {
+        Swal.fire({
+            icon: 'success',
+            title: 'Reset Link Sent!',
+            text: 'Please check your email.',
+            confirmButtonText: 'OK'
+        });
+    } else if (reset === 'success') {
+        Swal.fire({
+            icon: 'success',
+            title: 'Password Reset Successful!',
+            text: 'You can now log in with your new password.',
+            confirmButtonText: 'Login Now'
+        });
+    }
 </script>
 
 </body>
 </html>
-
