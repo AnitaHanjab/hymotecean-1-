@@ -15,18 +15,19 @@ if (isset($_POST["send"])) {
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'lagos.p.bscs@gmail.com';  
-        $mail->Password   = 'lgtotkbikfijdffi';        
+        $mail->Username   = 'hymetoceanpeersco@gmail.com';  // your Gmail
+        $mail->Password   = 'ceiyafsfjacqczyu';        // your Gmail App password
         $mail->SMTPSecure = 'ssl';
         $mail->Port       = 465;
 
         $mail->setFrom($_POST["Email"], $_POST["Name"]);
-        $mail->addAddress('lagos.p.bscs@gmail.com');
+        $mail->addAddress('hymetoceanpeersco@gmail.com');
         $mail->addReplyTo($_POST["Email"], $_POST["Name"]);
 
         $mail->isHTML(true);
         $mail->Subject = 'New Contact Submission from ' . $_POST["Name"];
 
+        // Format the body
         $mail->Body = '
             <h2>Contact Request</h2>
             <p><strong>Name:</strong> ' . htmlspecialchars($_POST["Name"]) . '</p>

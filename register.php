@@ -48,13 +48,13 @@ if (isset($_POST['Register'])) {
             $mail->isSMTP();
             $mail->Host       = 'smtp.gmail.com';
             $mail->SMTPAuth   = true;
-            $mail->Username   = 'lagos.p.bscs@gmail.com';
-            $mail->Password   = 'lgtotkbikfijdffi'; 
+            $mail->Username   = 'hymetoceanpeersco@gmail.com';
+            $mail->Password   = 'ceiyafsfjacqczyu'; 
             $mail->SMTPSecure = 'ssl';
             $mail->Port       = 465;
 
             // sends email to user
-            $mail->setFrom('lagos.p.bscs@gmail.com', 'Hymetocean Peers Co.');
+            $mail->setFrom('hymetoceanpeersco@gmail.com', 'Hymetocean Peers Co.');
             $mail->addAddress($Email, $Firstname); // User's email
 
             $mail->isHTML(true);

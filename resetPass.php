@@ -6,43 +6,40 @@ $errors = [];
 $password = '';
 $confirmPassword = '';
 
-// If form is submitted
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $token = $_POST["token"] ?? '';
-    $token_hash = hash("sha256", $token);
+$token = $_GET['token'] ?? $_POST['token'] ?? '';
+$token_hash = hash("sha256", $token);
 
-    $sql = "SELECT * FROM username WHERE reset_token = ?";
-    $stmt = $conn->prepare($sql);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get the token from POST
+    $stmt = $conn->prepare("SELECT * FROM username WHERE reset_token = ?");
     $stmt->bind_param("s", $token_hash);
     $stmt->execute();
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
 
     if (!$user) {
-        $errors[] = "Invalid or expired token.";
+        $errors['token'] = "Invalid or expired token.";
     } elseif (strtotime($user["reset_token_expiry"]) <= time()) {
-        $errors[] = "Token has expired.";
+        $errors['token'] = "Token has expired.";
     } else {
         $password = $_POST["password"];
         $confirmPassword = $_POST["password_confirmation"];
 
         if (strlen($password) < 8) {
             $errors['password'] = "Password must be at least 8 characters.";
-        }
-        if (!preg_match("/[a-z]/i", $password)) {
+        } elseif (!preg_match("/[a-z]/i", $password)) {
             $errors['password'] = "Password must contain at least one letter.";
-        }
-        if (!preg_match("/[0-9]/", $password)) {
+        } elseif (!preg_match("/[0-9]/", $password)) {
             $errors['password'] = "Password must contain at least one number.";
         }
+
         if ($password !== $confirmPassword) {
             $errors['confirm'] = "Passwords do not match.";
         }
 
         if (empty($errors)) {
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
-            $sql = "UPDATE username SET Password = ?, reset_token = NULL, reset_token_expiry = NULL WHERE Email = ?";
-            $stmt = $conn->prepare($sql);
+            $stmt = $conn->prepare("UPDATE username SET Password = ?, reset_token = NULL, reset_token_expiry = NULL WHERE Email = ?");
             $stmt->bind_param("ss", $password_hash, $user["Email"]);
             $stmt->execute();
 
@@ -56,41 +53,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Reset Password</title>
-    <style>
-        .error { color: red; font-size: 0.9em; margin-top: 5px; }
-        .form-box { max-width: 400px; margin: auto; padding: 20px; }
-        input[type="password"], input[type="submit"] {
-            width: 100%; padding: 10px; margin-top: 10px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reset Password</title>
+  <link rel="stylesheet" href="resetPass.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    .error { color: salmon; font-size: 0.9rem; margin-top: 5px; text-align: left; }
+  </style>
 </head>
 <body>
-<div class="form-box">
-    <h2>Reset Your Password</h2>
+  <div class="container">
+    <h2>Reset Password</h2>
 
-    <?php if (isset($errors[0])): ?>
-        <div class="error"><?= htmlspecialchars($errors[0]) ?></div>
+    <?php if (isset($errors['token'])): ?>
+      <div class="error"><?= htmlspecialchars($errors['token']) ?></div>
     <?php endif; ?>
 
     <form method="post">
-        <input type="hidden" name="token" value="<?= htmlspecialchars($_GET['token'] ?? $_POST['token'] ?? '') ?>">
+      <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
 
-        <label for="password">New Password:</label>
-        <input type="password" name="password" id="password" required>
-        <?php if (isset($errors['password'])): ?>
-            <div class="error"><?= htmlspecialchars($errors['password']) ?></div>
-        <?php endif; ?>
+      <div class="input-text">
+        <input type="password" name="password" id="password" required value="<?= htmlspecialchars($password) ?>" />
+        <label for="password">New Password</label>
+      </div>
+      <?php if (isset($errors['password'])): ?>
+        <div class="error"><?= htmlspecialchars($errors['password']) ?></div>
+      <?php endif; ?>
 
-        <label for="password_confirmation">Confirm Password:</label>
-        <input type="password" name="password_confirmation" id="password_confirmation" required>
-        <?php if (isset($errors['confirm'])): ?>
-            <div class="error"><?= htmlspecialchars($errors['confirm']) ?></div>
-        <?php endif; ?>
+      <div class="input-text">
+        <input type="password" name="password_confirmation" id="confirmPassword" required value="<?= htmlspecialchars($confirmPassword) ?>" />
+        <label for="confirmPassword">Confirm Password</label>
+      </div>
+      <?php if (isset($errors['confirm'])): ?>
+        <div class="error"><?= htmlspecialchars($errors['confirm']) ?></div>
+      <?php endif; ?>
 
-        <input type="submit" value="Reset Password">
+      <button type="submit">Submit</button>
     </form>
-</div>
+  </div>
 </body>
 </html>
