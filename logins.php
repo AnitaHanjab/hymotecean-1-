@@ -35,91 +35,90 @@
     <div class="form-box">
 
         <!-- Login Form -->
-<form method="post" action="front.php" onsubmit="return validateCaptcha()">
-    <div class="login-container" id="login">
-        <div class="top">
-            <span>Don't have an account? <a href="#" onclick="register()">Sign Up</a></span>
-            <header>Login</header>
-        </div>
-        <div class="input-box">
-            <input type="text" class="input-field" id="email" placeholder="Email" name="Email" required>
-            <i class="bx bx-user"></i>
-        </div>
-        <div class="input-box">
-            <input type="password" class="input-field" id="password" placeholder="Password" name="Password" required>
-            <i class="bx bx-lock-alt"></i>
-        </div>
-
-        <!-- CAPTCHA SECTION -->
-        <div class="input-box" style="margin-bottom: 10px;">
-            <div style="position: relative; display: flex; align-items: center; margin-bottom: 6px;">
-                <canvas id="captchaCanvas" width="120" height="30" style="border:1px solid #ccc;"></canvas>
+    <form method="post" action="front.php" onsubmit="return validateCaptcha()">
+        <div class="login-container" id="login">
+            <div class="top">
+                <span>Don't have an account? <a href="#" onclick="register()">Sign Up</a></span>
+                <header>Login</header>
             </div>
-            <i class='bx bx-refresh' onclick="generateCaptcha()" title="Refresh CAPTCHA"
-                style="cursor: pointer; display: flex; align-items:center ; margin-top: 10px; margin-left: 110px; font-size: 20px; color: #333;"></i>
-            <input type="text" class="input-field" id="captchaInput" placeholder="Enter CAPTCHA" required>
-            <i class='bx bx-check-shield'></i>
-        </div>
-
-        <div class="input-box">
-            <input type="submit" class="submit" value="Sign In" name="signIn">
-        </div>
-
-        <div class="two-col">
-            <div class="one">
-                <input type="checkbox" id="login-check">
-                <label for="login-check"> Remember Me</label>
+            <div class="input-box">
+                <input type="text" class="input-field" id="email" placeholder="Email" name="Email" required>
+                <i class="bx bx-user"></i>
             </div>
-            <div class="two">
-                <label><a href="forgotPassword.php">Forgot password?</a></label>
+            <div class="input-box">
+                <input type="password" class="input-field" id="password" placeholder="Password" name="Password" required>
+                <i class="bx bx-lock-alt"></i>
             </div>
-        </div>
-    </div>
-</form>
 
-
-        <!-- Registration Form -->
-        <form method="post" action="register.php">
-            <div class="register-container" id="register">
-                <div class="top">
-                    <span>Have an account? <a href="#" onclick="login()">Login</a></span>
-                    <header>Sign Up</header>
+            <!-- CAPTCHA SECTION -->
+            <div class="input-box captcha-box">
+                <div class="captcha-canvas-container">
+                    <canvas id="captchaCanvas" width="120" height="30"></canvas>
                 </div>
-                <div class="two-forms">
-                    <div class="input-box">
-                        <input type="text" class="input-field" name="Firstname" placeholder="Firstname" required>
-                        <i class="bx bx-user"></i>
+                <i class='bx bx-refresh captcha-refresh' onclick="generateCaptcha()" title="Refresh CAPTCHA"></i>
+                <input type="text" class="input-field" id="captchaInput" placeholder="Enter CAPTCHA" required>
+                <i class='bx bx-check-shield'></i>
+            </div>
+
+            <div class="input-box">
+                <input type="submit" class="submit" value="Sign In" name="signIn">
+            </div>
+
+            <div class="two-col">
+                <div class="one">
+                    <input type="checkbox" id="login-check">
+                    <label for="login-check"> Remember Me</label>
+                </div>
+                <div class="two">
+                    <label><a href="forgotPassword.php">Forgot password?</a></label>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+            <!-- Registration Form -->
+            <form method="post" action="register.php">
+                <div class="register-container" id="register">
+                    <div class="top">
+                        <span>Have an account? <a href="#" onclick="login()">Login</a></span>
+                        <header>Sign Up</header>
+                    </div>
+                    <div class="two-forms">
+                        <div class="input-box">
+                            <input type="text" class="input-field" name="Firstname" placeholder="Firstname" required>
+                            <i class="bx bx-user"></i>
+                        </div>
+                        <div class="input-box">
+                            <input type="text" class="input-field" name="Lastname" placeholder="Lastname" required>
+                            <i class="bx bx-user"></i>
+                        </div>
                     </div>
                     <div class="input-box">
-                        <input type="text" class="input-field" name="Lastname" placeholder="Lastname" required>
-                        <i class="bx bx-user"></i>
+                        <input type="text" class="input-field" name="Email" placeholder="Email" required>
+                        <i class="bx bx-envelope"></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" class="input-field" name="Password" placeholder="Password" required>
+                        <i class="bx bx-lock-alt"></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="submit" class="submit" value="Register" name="Register">
+                    </div>
+                    <div class="two-col">
+                        <div class="one">
+                            <input type="checkbox" id="register-check">
+                            <label for="register-check"> Remember Me</label>
+                        </div>
+                        <div class="two">
+                            <label><a href="#">Terms & conditions</a></label>
+                        </div>
                     </div>
                 </div>
-                <div class="input-box">
-                    <input type="text" class="input-field" name="Email" placeholder="Email" required>
-                    <i class="bx bx-envelope"></i>
-                </div>
-                <div class="input-box">
-                    <input type="password" class="input-field" name="Password" placeholder="Password" required>
-                    <i class="bx bx-lock-alt"></i>
-                </div>
-                <div class="input-box">
-                    <input type="submit" class="submit" value="Register" name="Register">
-                </div>
-                <div class="two-col">
-                    <div class="one">
-                        <input type="checkbox" id="register-check">
-                        <label for="register-check"> Remember Me</label>
-                    </div>
-                    <div class="two">
-                        <label><a href="#">Terms & conditions</a></label>
-                    </div>
-                </div>
-            </div>
-        </form>
+            </form>
 
+        </div>
     </div>
-</div>
 
 <script>
     function myMenuFunction() {
