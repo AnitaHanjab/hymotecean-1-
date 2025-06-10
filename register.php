@@ -5,18 +5,26 @@ session_start();
 // Function SweetAlert2 
 function showAlertAndRedirect($message) {
     echo "
-    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: '$message'
-        }).then(function() {
-            window.history.back();
-        });
-    </script>";
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    </head>
+    <body>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '$message'
+            }).then(function() {
+                window.history.back();
+            });
+        </script>
+    </body>
+    </html>";
     exit();
 }
+
 
 // REGISTER 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -37,7 +45,12 @@ if (isset($_POST['Register'])) {
     $otp = rand(100000, 999999);
     $otp_expiry = date("Y-m-d H:i:s", strtotime("+5 minutes"));
 
-    // Insert to DB
+    // Check if email already exists
+    $checkEmail = mysqli_query($conn, "SELECT * FROM username WHERE Email = '$Email'");
+    if (mysqli_num_rows($checkEmail) > 0) {
+        showAlertAndRedirect("Email already in use");
+    }
+
     $insertQuery = "INSERT INTO username (Firstname, Lastname, Email, Password, otp, otp_expiry, is_verified)
                     VALUES ('$Firstname', '$Lastname', '$Email', '$hashedPassword', '$otp', '$otp_expiry', 0)";
     $result = mysqli_query($conn, $insertQuery);
@@ -53,9 +66,8 @@ if (isset($_POST['Register'])) {
             $mail->SMTPSecure = 'ssl';
             $mail->Port       = 465;
 
-            // sends email to user
             $mail->setFrom('hymetoceanpeersco@gmail.com', 'Hymetocean Peers Co.');
-            $mail->addAddress($Email, $Firstname); // User's email
+            $mail->addAddress($Email, $Firstname); 
 
             $mail->isHTML(true);
             $mail->Subject = 'Your OTP for Hymetocean Registration';
@@ -67,7 +79,6 @@ if (isset($_POST['Register'])) {
 
             $mail->send();
 
-            // Redirect to OTP input page (with email in URL)
             header("Location: verifyOTP.php?email=$Email");
             exit();
 
@@ -80,8 +91,6 @@ if (isset($_POST['Register'])) {
     }
 }
 
-
-// LOGIN 
 if (isset($_POST['signIn'])) {
     $Email = $_POST['Email'];
     $Password = $_POST['Password'];
@@ -97,12 +106,10 @@ if (isset($_POST['signIn'])) {
             header("Location: front.php");
             exit();
         } else {
-            // Incorrect password
             header("Location: logins.php?status=wrongpassword");
             exit();
         }
     } else {
-        // Email not found
         header("Location: logins.php?status=emailnotfound");
         exit();
     }

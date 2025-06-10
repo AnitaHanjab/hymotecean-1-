@@ -81,70 +81,113 @@ body{
 }
 .form-box{
     position: relative;
+    top: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 512px;
-    height: 420px;
+    height: 580px;
     overflow: hidden;
     z-index: 2;
 }
 .login-container{
     position: absolute;
-    top: -30px;
+    top: -20px; 
     left: 4px;
     width: 500px;
+    min-height: 560px; 
+    padding-bottom: 20px; 
     display: flex;
     flex-direction: column;
+    justify-content: center;
     transition: .5s ease-in-out;
 }
 /* CAPTCHA SECTION */
 .captcha-box {
     margin-bottom: 15px;
 }
-
-.captcha-canvas-container {
+.captcha-box .two-forms {
+    display: flex;
+    gap: 10px;
+}
+.captcha-input-box {
+    width: 100%;
+    position: relative;
+}
+.captcha-input-box .input-field {
+    width: 100%;
+    height: 50px;
+    padding-left: 45px;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    outline: none;
+    transition: .2s ease;
+}
+.captcha-input-box i {
+    position: absolute;
+    top: 12px;
+    left: 17px;
+    color: #fff;
+}
+.captcha-display-box {
+    width: 100%;
+    position: relative;
+}
+.captcha-field {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
+    gap: 10px; /* adds space between CAPTCHA and refresh icon */
+    height: 50px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    padding: 0 15px;
+    box-sizing: border-box;
 }
-
 #captchaCanvas {
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 8px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: transparent;
+    border: none;
+    width: 80px;
+    height: 30px;
 }
-
-.captcha-refresh {
+.captcha-refresh-btn {
     font-size: 20px;
+    margin-top: 30%;
+    margin-left: 40%;
     color: #fff;
     cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
     display: flex;
     align-items: center;
-    margin-top: 10px;
-    margin-left: 110px; 
-    transition: transform 0.2s ease, color 0.2s ease;
+    justify-content: center;
+    transform: translateY(2px); /* fine-tuned vertical alignment */
+}
+.captcha-refresh-btn:hover {
+    color: #ddd;
+    transform: rotate(90deg) translateY(2px);
 }
 
-.captcha-refresh:hover {
-    color: #ddd;
-}
+
 .register-container{
     position: absolute;
-    top: -30px;
+    top: 20px;
     right: -520px;
     width: 500px;
     display: flex;
     flex-direction: column;
     transition: .5s ease-in-out;
 }
+
 .top span{
     color: #fff;
     font-size: small;
     padding: 10px 0;
     display: flex;
     justify-content: center;
+    margin-bottom: 5px;
 }
 .top span a{
     font-weight: 500;
@@ -155,8 +198,7 @@ header{
     color: #fff;
     font-size: 30px;
     text-align: center;
-    padding: 10px 0 30px 0;
-}
+    padding: 10px 0 30px 0}
 .two-forms{
     display: flex;
     gap: 10px;
@@ -191,6 +233,7 @@ header{
     color: black;
     height: 45px;
     width: 100%;
+    margin-bottom: 15px;
     border: none;
     border-radius: 30px;
     outline: none;

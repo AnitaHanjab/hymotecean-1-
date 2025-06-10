@@ -51,13 +51,23 @@
             </div>
 
             <!-- CAPTCHA SECTION -->
-            <div class="input-box captcha-box">
-                <div class="captcha-canvas-container">
-                    <canvas id="captchaCanvas" width="120" height="30"></canvas>
+              <div class="captcha-box">
+                <div class="two-forms">
+                    <div class="input-box captcha-input-box">
+                        <input type="text" id="captchaInput" name="captcha_input" class="input-field" placeholder="Enter CAPTCHA" required>
+                        <i class='bx bx-shield'></i>
+                        <?php if (!empty($captchaError)): ?>
+                            <p style="color: red; font-size: 12px;"><?php echo $captchaError; ?></p>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="input-box captcha-display-box">
+                        <div class="captcha-field">
+                            <canvas id="captchaCanvas" width="80" height="30"></canvas>
+                            <i class='bx bx-refresh captcha-refresh-btn' onclick="generateCaptcha()" title="Refresh CAPTCHA"></i>
+                        </div>
+                    </div>
                 </div>
-                <i class='bx bx-refresh captcha-refresh' onclick="generateCaptcha()" title="Refresh CAPTCHA"></i>
-                <input type="text" class="input-field" id="captchaInput" placeholder="Enter CAPTCHA" required>
-                <i class='bx bx-check-shield'></i>
             </div>
 
             <div class="input-box">
@@ -75,7 +85,6 @@
             </div>
         </div>
     </form>
-
 
             <!-- Registration Form -->
             <form method="post" action="register.php">
@@ -95,7 +104,8 @@
                         </div>
                     </div>
                     <div class="input-box">
-                        <input type="text" class="input-field" name="Email" placeholder="Email" required>
+                        <input type="text" class="input-field" name="Email" placeholder="Email"  value="<?php echo isset($_SESSION['old_email']) ? htmlspecialchars($_SESSION['old_email']) : ''; ?>" required>
+
                         <i class="bx bx-envelope"></i>
                     </div>
                     <div class="input-box">
