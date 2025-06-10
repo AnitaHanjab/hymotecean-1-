@@ -35,7 +35,7 @@
     <div class="form-box">
 
         <!-- Login Form -->
-    <form method="post" action="front.php" onsubmit="return validateCaptcha()">
+    <form method="post" action="register.php" onsubmit="return validateCaptcha()">
         <div class="login-container" id="login">
             <div class="top">
                 <span>Don't have an account? <a href="#" onclick="register()">Sign Up</a></span>
@@ -50,26 +50,8 @@
                 <i class="bx bx-lock-alt"></i>
             </div>
 
-            <!-- CAPTCHA SECTION -->
-              <div class="captcha-box">
-                <div class="two-forms">
-                    <div class="input-box captcha-input-box">
-                        <input type="text" id="captchaInput" name="captcha_input" class="input-field" placeholder="Enter CAPTCHA" required>
-                        <i class='bx bx-shield'></i>
-                        <?php if (!empty($captchaError)): ?>
-                            <p style="color: red; font-size: 12px;"><?php echo $captchaError; ?></p>
-                        <?php endif; ?>
-                    </div>
 
-                    <div class="input-box captcha-display-box">
-                        <div class="captcha-field">
-                            <canvas id="captchaCanvas" width="80" height="30"></canvas>
-                            <i class='bx bx-refresh captcha-refresh-btn' onclick="generateCaptcha()" title="Refresh CAPTCHA"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+              
             <div class="input-box">
                 <input type="submit" class="submit" value="Sign In" name="signIn">
             </div>
@@ -121,7 +103,7 @@
                             <label for="register-check"> Remember Me</label>
                         </div>
                         <div class="two">
-                            <label><a href="#">Terms & conditions</a></label>
+                            <label><a href="terms.html">Terms & conditions</a></label>
                         </div>
                     </div>
                 </div>
@@ -167,84 +149,33 @@
 <!-- SweetAlert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const status = urlParams.get('status');
+    const status = new URLSearchParams(window.location.search).get('status');
 
     if (status === 'wrongpassword') {
         Swal.fire({
             icon: 'error',
             title: 'Incorrect Password!',
-            text: 'The password you entered is incorrect.',
-            confirmButtonColor: '#3085d6',
+            text: 'The password you entered is incorrect.'
         });
     } else if (status === 'emailnotfound') {
         Swal.fire({
             icon: 'error',
             title: 'Email Not Found!',
-            text: 'We couldn’t find an account with that email.',
-            confirmButtonColor: '#3085d6',
+            text: 'We couldn’t find an account with that email.'
         });
-    }
-
-    const reset = urlParams.get('reset');
-    if (reset === 'sent') {
+    } else if (status === 'captchaerror') {
         Swal.fire({
-            icon: 'success',
-            title: 'Reset Link Sent!',
-            text: 'Please check your email.',
-            confirmButtonText: 'OK'
+            icon: 'error',
+            title: 'CAPTCHA Error!',
+            text: 'The CAPTCHA you entered is incorrect. Please try again.'
         });
-    } else if (reset === 'success') {
+    } else if (status === 'reset-success') {
         Swal.fire({
             icon: 'success',
             title: 'Password Reset Successful!',
-            text: 'You can now log in with your new password.',
-            confirmButtonText: 'Login Now'
+            text: 'You can now log in with your new password.'
         });
     }
-</script>
-<script>
-    let captchaCode = "";
-
-    function generateCaptcha() {
-        const canvas = document.getElementById("captchaCanvas");
-        const ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        const charsArray = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        const length = 6;
-        let captcha = [];
-
-        for (let i = 0; i < length; i++) {
-            const index = Math.floor(Math.random() * charsArray.length);
-            captcha.push(charsArray[index]);
-        }
-
-        captchaCode = captcha.join("");
-
-        ctx.font = "18px Arial"; // Smaller font
-        ctx.setTransform(1, 0.1, -0.1, 1, 0, 0); // Slight distortion
-        ctx.fillStyle = "#000";
-        ctx.fillText(captchaCode, 10, 22); // Adjust Y-position for smaller height
-    }
-
-
-    function validateCaptcha() {
-        const userInput = document.getElementById("captchaInput").value.trim();
-        if (userInput !== captchaCode) {
-            Swal.fire({
-                icon: "error",
-                title: "CAPTCHA Error",
-                text: "Incorrect CAPTCHA. Please try again.",
-                confirmButtonColor: "#3085d6"
-            });
-            generateCaptcha(); // Refresh CAPTCHA
-            return false; // Prevent form submission
-        }
-        return true;
-    }
-
-    window.onload = generateCaptcha;
 </script>
 
 </body>
