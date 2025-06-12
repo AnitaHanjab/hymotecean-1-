@@ -16,11 +16,11 @@
         </div>
         <div class="nav-menu" id="navMenu">
             <ul>
-                <li><a href="front.php" class="link">Home</a></li>
-                <li><a href="about.html" class="link">About Us</a></li>
-                <li><a href="project.php" class="link">Project</a></li>
-                <li><a href="contact.php" class="link">Contact</a></li>
-                <li><a href="logins.php" class="link">Login</a></li>
+                <li><a href="front.php" class="link"></a></li>
+                <li><a href="about.html" class="link"></a></li>
+                <li><a href="project.php" class="link"></a></li>
+                <li><a href="contact.php" class="link"></a></li>
+                <li><a href="logins.php" class="link"></a></li>
             </ul>
         </div>
         <div class="nav-button">
@@ -49,7 +49,6 @@
                 <input type="password" class="input-field" id="password" placeholder="Password" name="Password" required>
                 <i class="bx bx-lock-alt"></i>
             </div>
-
 
               
             <div class="input-box">
@@ -163,13 +162,7 @@
             title: 'Email Not Found!',
             text: 'We couldn’t find an account with that email.'
         });
-    } else if (status === 'captchaerror') {
-        Swal.fire({
-            icon: 'error',
-            title: 'CAPTCHA Error!',
-            text: 'The CAPTCHA you entered is incorrect. Please try again.'
-        });
-    } else if (status === 'reset-success') {
+     } else if (status === 'reset-success') {
         Swal.fire({
             icon: 'success',
             title: 'Password Reset Successful!',
