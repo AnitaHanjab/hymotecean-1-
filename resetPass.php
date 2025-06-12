@@ -10,7 +10,6 @@ $token = $_GET['token'] ?? $_POST['token'] ?? '';
 $token_hash = hash("sha256", $token);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get the token from POST
     $stmt = $conn->prepare("SELECT * FROM username WHERE reset_token = ?");
     $stmt->bind_param("s", $token_hash);
     $stmt->execute();
