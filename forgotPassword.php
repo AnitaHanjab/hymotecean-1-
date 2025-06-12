@@ -34,23 +34,26 @@
     </div>
 
     <!-- SweetAlert2 error handler -->
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('error') === 'emailnotfound') {
-            Swal.fire({
-                icon: 'error',
-                title: 'Email Not Found!',
-                text: 'We couldn’t find an account with that email.',
-                confirmButtonText: 'Try Again'
-            });
-        } else if (urlParams.get('status') === 'sent') {
-            Swal.fire({
-                icon: 'success',
-                title: 'Email Sent!',
-                text: 'A password reset link has been sent to your email.',
-                confirmButtonText: 'OK'
-            });
-        }
-    </script>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('error') === 'emailnotfound') {
+        Swal.fire({
+            icon: 'error',
+            title: 'Email Not Found!',
+            text: 'We couldn’t find an account with that email.',
+            confirmButtonText: 'Try Again'
+        });
+    } else if (urlParams.get('status') === 'sent') {
+        Swal.fire({
+            icon: 'success',
+            title: 'Email Sent!',
+            text: 'A password reset link has been sent to your email.',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            window.location.href = 'logins.php';
+        });
+    }
+</script>
+
 </body>
 </html>

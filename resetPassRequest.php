@@ -48,7 +48,7 @@ if (isset($_POST["email"])) {
             $mail->send();
 
             // Redirect to login 
-            header("Location: logins.php?reset=sent");
+            header("Location: forgotPassword.php?status=sent");
             exit;
 
         } catch (Exception $e) {
