@@ -45,7 +45,7 @@
   <div class="form-box">
 
     <!-- Login Form -->
-    <form method="post" action="register.php" id="loginForm" onsubmit="return false;">
+    <form method="post" action="LoginConnection.php" id="loginForm" onsubmit="return false;">
       <div class="login-container" id="login">
         <div class="top">
           <span>Don't have an account? <a href="#" onclick="register()">Sign Up</a></span>

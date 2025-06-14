@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Consultation Form</title>
+  <link rel="stylesheet" href="consult.css" />
+</head>
+<body>
+  <div class="background">
+    <div class="booking-form">
+      <h2>Book a Consultation</h2>
+      <form action="">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" required />
+
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" required />
+
+        <label for="organization">Organization</label>
+        <input type="text" name="organization" id="organization" required />
+
+        <label for="type-project">Type of Project</label>
+        <input type="text" name="type-project" id="type-project" required />
+
+        <label for="description">Project Description</label>
+        <textarea name="description" id="description" rows="4" required></textarea>
+
+        <label for="appointment">Preferred Consultation Date</label>
+        <input type="datetime-local" name="appointment" id="appointment" required />
+
+        <button type="submit">Consult Now</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
