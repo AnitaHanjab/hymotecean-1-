@@ -1,61 +1,41 @@
 <?php
+include 'connect.php';
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['send'])) {
+    $name = $_POST['Name'];
+    $email = $_POST['Email'];
+    $project = $_POST['Projects'];
+    $message = $_POST['Message'];
 
-require 'phpmailer/src/Exception.php';
-require 'phpmailer/src/PHPMailer.php';
-require 'phpmailer/src/SMTP.php';
+    $uploadDir = 'uploads/';
+    $uploadedFiles = [];
 
-if (isset($_POST["send"])) {
+    if (!file_exists($uploadDir)) {
+        mkdir($uploadDir, 0777, true);
+    }
 
-    $mail = new PHPMailer(true);
+    // Handle multiple files
+    foreach ($_FILES['Project']['name'] as $key => $filename) {
+        $tmpName = $_FILES['Project']['tmp_name'][$key];
+        $targetFile = $uploadDir . time() . '_' . basename($filename);
 
-    try {
-        $mail->isSMTP();
-        $mail->Host       = 'smtp.gmail.com';
-        $mail->SMTPAuth   = true;
-        $mail->Username   = 'hymetoceanpeersco@gmail.com';  // your Gmail
-        $mail->Password   = 'ceiyafsfjacqczyu';        // your Gmail App password
-        $mail->SMTPSecure = 'ssl';
-        $mail->Port       = 465;
-
-        $mail->setFrom($_POST["Email"], $_POST["Name"]);
-        $mail->addAddress('hymetoceanpeersco@gmail.com');
-        $mail->addReplyTo($_POST["Email"], $_POST["Name"]);
-
-        $mail->isHTML(true);
-        $mail->Subject = 'New Contact Submission from ' . $_POST["Name"];
-
-        // Format the body
-        $mail->Body = '
-            <h2>Contact Request</h2>
-            <p><strong>Name:</strong> ' . htmlspecialchars($_POST["Name"]) . '</p>
-            <p><strong>Email:</strong> ' . htmlspecialchars($_POST["Email"]) . '</p>
-            <p><strong>Project Description:</strong> ' . nl2br(htmlspecialchars($_POST["Projects"])) . '</p>
-            <p><strong>Message:</strong><br>' . nl2br(htmlspecialchars($_POST["Message"])) . '</p>
-        ';
-
-        // Max size (5MB)
-        $maxFileSize = 5 * 1024 * 1024;
-
-        if (!empty($_FILES['Project']['name'][0])) {
-            foreach ($_FILES['Project']['tmp_name'] as $key => $tmp_name) {
-                if ($_FILES['Project']['error'][$key] === UPLOAD_ERR_OK) {
-                    if ($_FILES['Project']['size'][$key] <= $maxFileSize) {
-                        $mail->addAttachment($tmp_name, $_FILES['Project']['name'][$key]);
-                    }
-                }
-            }
+        if (move_uploaded_file($tmpName, $targetFile)) {
+            $uploadedFiles[] = $targetFile;
         }
+    }
 
-        $mail->send();
+    $attachments = implode(',', $uploadedFiles); // Combine file paths into a string
+
+    // Insert into database
+    $stmt = $conn->prepare("INSERT INTO messages (name, email, project, message, attachments) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssss", $name, $email, $project, $message, $attachments);
+
+    if ($stmt->execute()) {
         header("Location: contact.php?status=sent");
-        exit;
-
-    } catch (Exception $e) {
+        exit();
+    } else {
         header("Location: contact.php?status=error");
-        exit;
+        exit();
     }
 }
 ?>

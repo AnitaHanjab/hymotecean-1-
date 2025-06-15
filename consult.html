@@ -10,26 +10,26 @@
   <div class="background">
     <div class="booking-form">
       <h2>Book a Consultation</h2>
-      <form action="">
+      <form action="consultSend.php" method="POST">
         <label for="name">Name</label>
-        <input type="text" name="name" id="name" required />
+        <input type="text" name="Name" id="name" required />
 
         <label for="email">Email</label>
-        <input type="email" name="email" id="email" required />
+        <input type="email" name="Email" id="email" required />
 
         <label for="organization">Organization</label>
-        <input type="text" name="organization" id="organization" required />
+        <input type="text" name="Organization" id="organization" required />
 
         <label for="type-project">Type of Project</label>
-        <input type="text" name="type-project" id="type-project" required />
+        <input type="text" name="Type" id="type-project" required />
 
         <label for="description">Project Description</label>
-        <textarea name="description" id="description" rows="4" required></textarea>
+        <textarea name="Projects" id="description" rows="4" required></textarea>
 
         <label for="appointment">Preferred Consultation Date</label>
-        <input type="datetime-local" name="appointment" id="appointment" required />
+        <input type="datetime-local" name="Appointment" id="appointment" required />
 
-        <button type="submit">Consult Now</button>
+        <button type="submit" name="send">Consult Now</button>
       </form>
     </div>
   </div>
