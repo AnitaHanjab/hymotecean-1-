@@ -1,6 +1,11 @@
 <?php
 include 'connect.php';
+
+session_start();
+$firstname = isset($_SESSION['Firstname']) ? $_SESSION['Firstname'] : 'Unknown';
+$lastname = isset($_SESSION['Lastname']) ? $_SESSION['Lastname'] : 'User';
 ?>
+
 
 
 <!DOCTYPE html>
@@ -70,12 +75,12 @@ include 'connect.php';
     </div>
     <div class="sidebar-menu">
       <ul>
-        <li><a href="admin.html"><span class="fa-solid fa-computer"></span><span>Dashboard</span></a></li>
-        <li><a href="clients.html"><span class="fa-solid fa-users-rectangle"></span><span>Clients</span></a></li>
-        <li><a href="projects.html"><span class="fa-solid fa-diagram-project"></span><span>Projects</span></a></li>
+        <li><a href="admin.php"><span class="fa-solid fa-computer"></span><span>Dashboard</span></a></li>
+        <li><a href="clients.php"><span class="fa-solid fa-users-rectangle"></span><span>Clients</span></a></li>
+        <li><a href="projects.php"><span class="fa-solid fa-diagram-project"></span><span>Projects</span></a></li>
         <li><a href="messages.php"><span class="fa-regular fa-message"></span><span>Messages</span></a></li>
         <li><a href="tasks.php" class="active"><span class="fa-regular fa-clipboard"></span><span>Tasks</span></a></li>
-        <li><a href="account.html"><span class="fa-solid fa-users"></span><span>Accounts</span></a></li>
+        <li><a href="account.php"><span class="fa-solid fa-users"></span><span>Accounts</span></a></li>
         <li><a href="logins.php"><span class="fa-solid fa-right-from-bracket"></span><span>Log out</span></a></li>
       </ul>
     </div>
@@ -96,7 +101,7 @@ include 'connect.php';
       <div class="user-wrapper">
         <img src="img/admin-p2.jpg" width="30px" height="30px" alt="" />
         <div>
-          <h4>Prinz Asignado</h4>
+          <h4><?= htmlspecialchars($firstname . ' ' . $lastname) ?></h4>
           <small>Admin</small>
         </div>
       </div>

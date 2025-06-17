@@ -47,7 +47,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['Email']) && isset($_P
 
         if (password_verify($Password, $row['Password'])) {
             $_SESSION['Email'] = $row['Email'];
-            header("Location: front.php");
+            $_SESSION['Firstname'] = $row['Firstname'];
+            $_SESSION['Lastname'] = $row['Lastname'];
+
+            if ($Email === 'hymetoceanpeersco@gmail.com') {
+                header("Location: admin.php");
+            } else {
+                header("Location: front.php");
+            }
             exit();
         } else {
             header("Location: logins.php?status=wrongpassword");
